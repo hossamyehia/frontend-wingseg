@@ -1,0 +1,396 @@
+:root{
+    --target-fade: 250ms;
+    --siblings-fade: 300ms;
+    --page-fade: 600ms;
+    --back-btn-slide: 450ms;
+    --buttons-slide: 300ms;
+    /*--buttons-slide-in: calc(var(--page-fade-in-out) + var(--buttons-fade-out));*/
+    --animationDuration: calc(var(--siblings-fade) + var(--buttons-slide));
+    --main-font-size: 2.1rem;
+}
+
+/******        Animations        *******/
+.header.shrink{
+    height: calc(13vh + 1px);
+    transition: 
+        height var(--back-btn-slide) cubic-bezier(0.2, 0.4,0.6 ,0.8) var(--animationDuration);
+}
+
+.back.slideIn{
+    width: 50%;
+    opacity: 1;
+    transform: translate(0,0);
+    font-size: var(--main-font-size);
+    visibility: visible;
+
+    transition: 
+        transform var(--back-btn-slide) cubic-bezier(0.8, 0.6,0.6 ,0.8),
+        width calc(var(--back-btn-slide) / 2) cubic-bezier(0.8, 0.4,0.7 ,0.8),
+        opacity var(--back-btn-slide) cubic-bezier(0.8, 0.4,0.6 ,0.8),
+        font-size calc(var(--back-btn-slide) / 2) cubic-bezier(0.8, 0.4,0.7 ,0.8),
+        visibility 0s cubic-bezier(0.8, 0.4,0.6 ,0.2);
+
+}
+
+.back.slideOut{
+    width: 0%;
+    opacity: 0;
+    transform: translate(100%,0);
+    font-size: 0rem;
+    visibility: hidden;
+
+    transition: 
+        transform var(--back-btn-slide) cubic-bezier(0.2, 0.4,0.6 ,0.8),
+        opacity var(--back-btn-slide) cubic-bezier(0.2, 0.4,0.6 ,0.8),
+        width var(--back-btn-slide) cubic-bezier(0.2, 0.4,0.7 ,0.8),
+        font-size var(--back-btn-slide) cubic-bezier(0.2, 0.4,0.7 ,0.8),
+        visibility 0s var(--back-btn-slide) cubic-bezier(0.8, 0.4,0.6 ,0.2);
+}
+
+#cities.shrink{
+    height: 0;
+
+    transition: 
+        height var(--buttons-slide) cubic-bezier(0.8, 0.6,0.4 ,0.2);
+}
+
+.btns.slideIn{
+    transform: translate(0, 0);
+
+    transition: 
+        transform var(--buttons-slide) cubic-bezier(0.2, 0.4,0.7 ,0.8) /*var(--back-btn-slide)*/;
+}
+
+.btns.slideOut{
+    transform: translate(0, -100%);
+
+    transition: 
+        transform var(--buttons-slide) cubic-bezier(0.8, 0.4,0.4 ,0.2) calc((var(--target-fade) + var(--siblings-fade)) / 4);
+}
+
+.btn.targetIn{
+    opacity: 1;
+    transform: scale(1);
+    
+    transition: 
+        transform var(--target-fade) cubic-bezier(0.8, 0.2,0.2 ,0.8) var(--buttons-slide), 
+        opacity var(--target-fade) linear var(--buttons-slide);
+}
+
+.btn.siblingsIn{
+    opacity: 1;
+    
+    transition: 
+        opacity var(--siblings-fade) linear var(--buttons-slide);
+}
+
+.btn.targetOut{
+    opacity: 0;
+    transform: scale(0);
+
+    transition: 
+        opacity var(--target-fade) linear, 
+        transform var(--target-fade) cubic-bezier(0.8, 0.2,0.2 ,0.8);
+}
+
+.btn.siblingOut{
+    opacity: 0;
+
+    transition: 
+        opacity var(--siblings-fade) ease-in-out;
+}
+
+.body.show{
+    /*display: flex;*/
+    visibility: visible;
+
+    transition: 
+        display 0s cubic-bezier(0.8, 0.4,0.6 ,0.2),
+        visibility 0s cubic-bezier(0.8, 0.4,0.6 ,0.2);
+}
+
+.body.hide{
+    /*display: none;*/
+    visibility: hidden;
+
+    transition: 
+        display 0s var(--page-fade) cubic-bezier(0.8, 0.4,0.6 ,0.2),
+        visibility 0s var(--page-fade) cubic-bezier(0.8, 0.4,0.6 ,0.2);
+}
+
+.image.selected{
+    max-height: fit-content;
+    opacity: 1;
+    visibility: visible;
+
+    transition: 
+        max-height 0s cubic-bezier(0, 1,0 ,1),
+        opacity var(--page-fade) cubic-bezier(0.2, 0.4,0.6 ,0.8) calc( var(--animationDuration) + var(--page-fade)),
+        visibility 0s cubic-bezier(0.8, 0.4,0.6 ,0.2);
+}
+
+nav.slideUp{
+    transform: translateY(0);
+
+    transition: 
+        transform var(--page-fade) cubic-bezier(0.2, 0.4,0.6 ,0.8);
+}
+
+/***************************************/
+
+body {
+    margin: 0;
+    padding: 0;
+    
+    width: 100%;
+    direction: rtl;
+
+    font-family: 'Titillium Web';
+    user-select: none;
+    scroll-behavior: smooth;
+}
+/*****************Header*******************/
+
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    direction: rtl;
+
+    height: calc(20vh + 1px);
+    padding: 10px 0;
+
+    background: #000000;
+    transition: 
+        height var(--back-btn-slide) cubic-bezier(0.2, 0.4,0.6 ,0.8) var(--page-fade);
+}
+
+.header .logo{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-self: center;
+    justify-content: center;
+}
+.header .logo img {
+    height: 100%;
+    width: auto;
+}
+
+.back{
+    width: 0%;
+    padding: 10px;
+    
+    position: relative;
+    align-self: center;
+    direction: ltr;
+    
+    color: aliceblue;
+    background: #fc9917;
+
+    border: none;
+    border-radius: 10px 0px 0px 10px;
+    cursor: pointer;
+
+    opacity: 0;
+    font-size: var(--main-font-size);
+    transform: translate(100%, 0);
+
+}
+.back:hover{
+    background: #ffae01;
+    
+}
+
+.back:active{
+    background: #e98d25;
+}
+
+/********************************************/
+
+#cities{
+    overflow: hidden;
+    height: calc(80vh - 1.6rem);
+    width: 100%;
+
+    transition: 
+        height var(--buttons-slide) cubic-bezier(0.2, 0.4,0.6 ,0.8);
+}
+
+.btns{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    height: 100%;
+}
+
+.btn{
+    font-size: var(--main-font-size);
+    padding: 50px;
+
+    color: aliceblue;
+    background: #fc9917;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 0 5px 0px black;
+
+    cursor: pointer;
+    transition: 
+        transform 0.25s cubic-bezier(0.8, 0.2,0.2 ,0.8);
+}
+
+.btn:hover{
+    background: #ffae01;
+    box-shadow: 0 0 2px 0px black;
+    transform: scale(0.9);
+}
+
+.btn:active{
+    background: #e98d25;
+    transform: scale(0.9);
+}
+
+/*****************************/
+
+.body{
+    margin: 0;
+    padding: 0;
+    direction: ltr;
+
+    /*
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    */
+    
+    position: relative;
+    text-align: center;
+
+    visibility: visible;
+    opacity: 1;
+
+    overflow: hidden;
+    /*transform: scale(1, 1);*/
+}
+
+
+.image{
+    position: relative;
+    margin: 0;
+    padding: 0;
+
+    max-height: 0px;
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
+
+    transition: 
+        max-height 0s var(--page-fade),
+        opacity var(--page-fade) cubic-bezier(0.2, 0.4,0.6 ,0.8),
+        visibility 0s var(--page-fade);
+}
+
+.image img{
+    width: 100%;
+    height: auto;
+}
+
+
+/*******************/
+nav{
+    position: fixed;
+    z-index: 5;
+    bottom: 0;
+    left: 0;
+
+    transform: translateY(100%);
+    width: 100%;
+
+    transition: 
+        transform var(--page-fade) cubic-bezier(0.2, 0.4,0.6 ,0.8);
+}
+
+div.scrollmenu {
+    overflow-y: hidden;
+    overflow-x: auto;
+    white-space: nowrap;
+    background-color: #2581E9;
+}
+
+div.scrollmenu a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    padding: 14px;
+    background-color: #2581E9;
+}
+
+div.scrollmenu a:hover {
+    background-color: #0152FF;
+}
+/********************/
+.scrollmenu::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+}
+
+.scrollmenu::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.scrollmenu::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+.scrollmenu::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+/**********************/
+
+/***************MEDIA QUERIES***************/
+@media only screen and (max-width: 950px) {
+    .header{
+        height: 80px;
+    }
+    .header.shrink{
+        height: 80px;
+    }
+
+    .btn{
+        font-size: 2rem;
+    }
+    .back{
+        font-size: 1.5rem;
+    }
+    .back.slideIn{
+        font-size: 1.5rem;
+    }
+
+    .scrollmenu::-webkit-scrollbar {
+        height: 5px;
+    }
+  }
+  
+@media only screen and (max-width: 420px) {
+    .header{
+        height: 50px;
+    }
+    .header.shrink{
+        height: 50px;
+    }
+
+    .btn{
+        font-size: 2rem;
+    }
+    .back{
+        font-size: 1.1rem;
+    }
+    .back.slideIn{
+        font-size: 1.1rem;
+    }
+    
+  }
+/*******************************************/ 
